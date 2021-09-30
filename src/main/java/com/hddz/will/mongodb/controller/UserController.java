@@ -3,7 +3,6 @@ package com.hddz.will.mongodb.controller;
 import com.hddz.will.mongodb.dao.UserDao;
 import com.hddz.will.mongodb.dao.UserRepository;
 import com.hddz.will.mongodb.mode.HttpResult;
-import com.hddz.will.mongodb.mode.PageMessage;
 import com.hddz.will.mongodb.mode.User;
 
 import com.hddz.will.mongodb.service.UserService;
@@ -11,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,20 +30,23 @@ public class UserController {
     @Value("${a.b}")
     private List<String> a;
     
-    @Autowired
-    private UserDao dao;
+    private final UserDao dao;
 
-    @Autowired
-    private UserRepository repository;
+    private final UserRepository repository;
 
-    @Autowired
-    private UserService service;
+    private final UserService service;
+
+    public UserController(UserDao dao, UserRepository repository, UserService service) {
+        this.dao = dao;
+        this.repository = repository;
+        this.service = service;
+    }
 
     @PostMapping(value = "save")
     public HttpResult<String> save(@RequestBody User user){
         // dao.save(user);
         repository.save(user);
-        return new HttpResult<String>(200, null, "succes");
+        return new HttpResult<>(200, null, "succes");
     }
 
     @GetMapping(value = "list")
@@ -58,21 +58,21 @@ public class UserController {
     
     @GetMapping(value = "{name}")
     public HttpResult<User> getByname(@PathVariable String name){
-        return new HttpResult<User>(200, repository.findByName(name), "succes");
+        return new HttpResult<>(200, repository.findByName(name), "succes");
     }
 
     
     @DeleteMapping(value = "{id}")
     public HttpResult<String> delete(@PathVariable int id){
         repository.delete(id);
-        return new HttpResult<String>(200, null, "succes");
+        return new HttpResult<>(200, null, "succes");
     }
 
     
     @PutMapping(value = "update")
     public HttpResult<String> update(@RequestBody User user){
         repository.save(user);
-        return new HttpResult<String>(200, null, "succes");
+        return new HttpResult<>(200, null, "succes");
     }
 
     @GetMapping(value = "async")

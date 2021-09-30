@@ -1,6 +1,5 @@
 package com.hddz.will.mongodb.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.hddz.will.mongodb.mode.PageMessage;
@@ -19,8 +18,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserDao {
 
-    @Autowired
-    private MongoTemplate template;
+    private final MongoTemplate template;
+
+    public UserDao(MongoTemplate template) {
+        this.template = template;
+    }
 
     public void save(User user) {
         template.save(user);
@@ -28,8 +30,7 @@ public class UserDao {
 
     public User findByName(String name) {
         Query query = new Query(Criteria.where("name").is(name));
-        User user = template.findOne(query, User.class);
-        return user;
+        return template.findOne(query, User.class);
     }
 
     public void update(User user) {

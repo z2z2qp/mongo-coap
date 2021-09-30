@@ -1,8 +1,6 @@
 package com.hddz.will.mongodb.service;
 
-import com.hddz.will.mongodb.resource.HelloResource;
 import com.hddz.will.mongodb.resource.MyResource;
-import com.hddz.will.mongodb.resource.TimeResource;
 import org.eclipse.californium.core.CoapResource;
 import org.eclipse.californium.core.CoapServer;
 import org.reflections.Reflections;
@@ -46,12 +44,10 @@ public class COAPService implements ApplicationRunner, ApplicationListener<Conte
                 log.warn("loop resource error:{}",e.getMessage());
             }
         }
-        // server.add(new HelloResource());
-        // server.add(new TimeResource());
     }
 
     @Override
-    public void run(ApplicationArguments args) throws Exception {
+    public void run(ApplicationArguments args) {
         if (!Objects.isNull(server)) {
            server.start();
         }

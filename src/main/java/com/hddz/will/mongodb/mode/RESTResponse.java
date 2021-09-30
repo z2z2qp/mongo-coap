@@ -9,10 +9,10 @@ package com.hddz.will.mongodb.mode;
  */
 public class RESTResponse <T> {
 
-    public int Code;
-    public String Message;
+    public final int Code;
+    public final String Message;
 
-    public T Response;
+    public final T Response;
 
     public RESTResponse(int Code, String Message, T Response) {
 
@@ -23,12 +23,12 @@ public class RESTResponse <T> {
 
     public static <V> RESTResponse<V> of(V Response) {
 
-        return new RESTResponse<V>(0, null, Response);
+        return new RESTResponse<>(0, null, Response);
     }
 
     public static <V> RESTResponse<V> of(int Code, String Message) {
 
-        return new RESTResponse<V>(Code, Message, null);
+        return new RESTResponse<>(Code, Message, null);
     }
 
 

@@ -1,6 +1,5 @@
 package com.hddz.will.will;
 
-import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -54,7 +53,7 @@ public class MapSort {
         list.sort(Map.Entry.comparingByValue());
         System.out.println("test2");
         System.out.println(list);
-        map.entrySet().forEach(it->System.out.printf("%s,%s,\n",it.getKey(),it.getValue()));
+        map.forEach((key, value) -> System.out.printf("%s,%s,\n", key, value));
         System.out.println("test2");
     }
 }
